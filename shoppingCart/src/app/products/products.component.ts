@@ -208,7 +208,9 @@ export class ProductsComponent implements OnInit {
         })
         this.filteredData = this.productsData
         // console.log(this.filteredData)
-      })
+      },((error:any)=>{
+        alert(error)
+      }));
   }
 
   cartData:any= []
@@ -219,7 +221,12 @@ export class ProductsComponent implements OnInit {
       each.quantity = each.id == item.id && each.quantity > 0 ? each.quantity-1 : each.quantity
       return each
      })
+     this.pushToCart(item)
      this.cartService.crossCommunication(this.productsData)
+  }
+
+  pushToCart(item:any){
+    console.log(item)
   }
 
 }
