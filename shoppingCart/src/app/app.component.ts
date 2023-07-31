@@ -8,12 +8,38 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
   title = 'shoppingCart';
+  loggedIn = false
+  token = false
 
   constructor(private router :Router){
-    
+    if(localStorage.getItem('token')){
+      this.loggedIn = true
+      this.token=false
+    }
   }
   //initially showing products page when opened
   ngOnInit(){
-    this.router.navigate(['/products'])
+    if(!localStorage.getItem('userDetails')){
+      this.loggedIn = false
+      this.token = false
+      this.router.navigate(['/'])
+    }else{
+      this.router.navigate(['/products'])
+      this.token = true
+      this.loggedIn = true
+    }
+  }
+
+  ngOnDestroy(){
+    localStorage.removeItem('userDetails')
+    localStorage.removeItem('token')
+  }
+
+  backToSignIn(){
+    localStorage.removeItem('userDetails')
+    localStorage.removeItem('token')
+    this.loggedIn = false
+    this.token = false
+    this.router.navigate(['/'])
   }
 }

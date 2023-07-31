@@ -40,9 +40,9 @@
     <div style="display:flex; width:90%; flex-direction: column;" >
       <div class="wrap">
         <div class="search">
-           <input type="text" class="searchTerm" placeholder="What are you looking for?">
-           <button type="submit" class="searchButton">
-             <i class="fa fa-search"></i>
+           <input type="text" class="searchTerm" placeholder="Type and enter.." [(ngModel)]="searchWord" (keydown)="backSpace($event)">
+           <button type="submit" class="searchButton" (click)="searchList()">
+             <i class="fa fa-search" ></i>
           </button>
         </div>
       </div>
@@ -64,7 +64,7 @@
                           <span class="p-company">{{product.type}}</span>
                           <span class="p-company">{{product.gender}}</span>
                         </div>
-                        <div class="a-size">Available Quantity : <span class="size">{{product.quantity}}</span></div>
+                        <!-- <div class="a-size">Available Quantity : <span class="size">{{product.quantity}}</span></div> -->
                       </div>
                     </div>
             

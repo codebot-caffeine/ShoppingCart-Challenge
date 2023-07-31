@@ -72,7 +72,8 @@ export class ProductsComponent implements OnInit {
       checked: false
     },
   ]
-  constructor(private http: HttpClient,private cartService:CartService) { }
+  constructor(private http: HttpClient,private cartService:CartService) {
+  }
 
   ngOnInit(): void {
     //if the cart has items product data will be shown accordingly or else api call will be made
@@ -81,6 +82,12 @@ export class ProductsComponent implements OnInit {
       this.filteredData = this.productsData
     }else{
       this.getProducts()
+    }
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload() 
+    } else {
+      localStorage.removeItem('foo') 
     }
     
   }
@@ -227,6 +234,27 @@ export class ProductsComponent implements OnInit {
 
   pushToCart(item:any){
     console.log(item)
+  }
+  
+  searchWord:any = ''
+  searchList(){
+    let d = []
+    //filter object contains keys (color,grade,price etc..,)
+    d = this.productsData.filter((item: any) => {
+      //original data is the data we get from api call
+      return item.name.toLowerCase().includes(this.searchWord.toLowerCase())
+    });
+
+    this.filteredData = d
+    // console.log(d)
+  }
+
+  backSpace(event:any){
+    if(event.key == 'Backspace' && this.searchWord == ''){
+       this.getProducts()
+    }else if(event.key == 'Enter' && this.searchWord.length >  2){
+       this.searchList()
+    }
   }
 
 }
