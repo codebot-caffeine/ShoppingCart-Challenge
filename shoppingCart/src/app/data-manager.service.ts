@@ -9,8 +9,9 @@ import { map } from 'rxjs/operators';
 })
 
 export class dataService{
+    token:any = ''
     constructor(private httpClient: HttpClient,private router: Router){
-
+       this.token = localStorage.getItem('token')
     }
 
     getUpdatedOptions() {
@@ -61,6 +62,10 @@ export class dataService{
 
     APIGenericPostMethod(entity: string, entityObject: {}, prefix: string) {
         let url = prefix + entity;
+        let body = {
+            ...entityObject,
+            "x-access-token": this.token
+        }
         return this.httpClient
             .post(url, entityObject, this.getUpdatedOptions())
             .pipe(

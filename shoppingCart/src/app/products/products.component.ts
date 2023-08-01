@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs';
 import { CartService } from '../cart-service';
+import { dataService } from '../data-manager.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
@@ -72,7 +73,11 @@ export class ProductsComponent implements OnInit {
       checked: false
     },
   ]
-  constructor(private http: HttpClient,private cartService:CartService) {
+
+  prefixlive:any = 'https://shopping-cart-nfec.onrender.com/'
+  prefixtest:any = 'http://localhost:3000/'
+  userId:any = ''
+  constructor(private http: HttpClient,private cartService:CartService,private dm : dataService) {
   }
 
   ngOnInit(): void {
@@ -89,7 +94,10 @@ export class ProductsComponent implements OnInit {
     } else {
       localStorage.removeItem('foo') 
     }
-    
+    let userData :any= localStorage.getItem('userDetails')
+    userData = JSON.parse(userData)
+    this.userId = userData._id
+    // console.log(this.userId)
   }
 
   filteredData: any = []
@@ -255,6 +263,40 @@ export class ProductsComponent implements OnInit {
     }else if(event.key == 'Enter' && this.searchWord.length >  2){
        this.searchList()
     }
+  }
+
+  addToCart(body:any){
+    let bod = {
+      '_id': this.userId,
+       'cart':{...body}
+    }
+    console.log(bod)
+    this.dm.APIGenericPostMethod('add/cart',bod,this.prefixlive).subscribe((data)=>{
+      if(data.status){
+        // console.log(data.token)
+        alert(data?.response)
+        // localStorage.setItem('userDetails',JSON.stringify(data?.response?.userData))
+      }else{
+        console.log(data,'error')
+      }
+    })
+  }
+
+  removeFromCart(body:any){
+    let bod = {
+      '_id': this.userId,
+       'cart':{...body}
+    }
+    console.log(bod)
+    this.dm.APIGenericPostMethod('/remove/cart',bod,this.prefixlive).subscribe((data)=>{
+      if(data.status){
+        // console.log(data.token)
+        console.log(data)
+        
+      }else{
+        console.log(data,'error')
+      }
+    })
   }
 
 }

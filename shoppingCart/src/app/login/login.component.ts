@@ -37,6 +37,9 @@ export class LoginComponent implements OnInit {
       this.dm.APIGenericPostMethod('/signup',this.signUpAccount.value,this.prefixlive).subscribe((data)=>{
         if(data.status){
           console.log(data)
+          this.signUpAccount.reset()
+          this.signIn = true
+          this.signUp = false
           // localStorage.setItem('token',data?.token)
         }else{
           console.log(data,'error')
@@ -50,6 +53,7 @@ export class LoginComponent implements OnInit {
       this.dm.APIGenericPostMethod('/signin',this.signInAccount.value,this.prefixlive).subscribe((data)=>{
         if(data.status){
           // console.log(data.token)
+          this.signInAccount.reset()
           localStorage.setItem('token',data?.response.token)
           localStorage.setItem('userDetails',JSON.stringify(data?.response?.userData))
           setTimeout(()=>{

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart-service';
+import { dataService } from '../data-manager.service';
 
 @Component({
   selector: 'app-cart',
@@ -8,13 +9,35 @@ import { CartService } from '../cart-service';
 })
 export class CartComponent implements OnInit {
 
-  constructor(private cartService:CartService) { }
+  constructor(private cartService:CartService,private dm:dataService) { 
+    let userData :any = localStorage.getItem('userDetails')
+    userData = JSON.parse(userData)
+    this.userId = userData._id
+  }
   cartData:any= []
   productData:any = []
+  userId:any = ''
   ngOnInit(): void {
-    this.cartData = this.cartService.getCartItems()
+    this.getCartItems()
   }
-
+  
+  prefixlive:any = 'https://shopping-cart-nfec.onrender.com/'
+  prefixtest:any = 'http://localhost:3000/'
+  getCartItems(){
+    let bod = {
+      '_id': this.userId
+    }
+    // console.log(bod)
+    this.dm.APIGenericPostMethod('get/cartitems',bod,this.prefixlive).subscribe((data)=>{
+      if(data.status){
+        // console.log(data.token)
+        this.cartData = data.response?.userData?.cart
+        // localStorage.setItem('userDetails',JSON.stringify(data?.response?.userData))
+      }else{
+        console.log(data,'error')
+      }
+    })
+  }
 
 
 }

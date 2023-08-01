@@ -75,8 +75,9 @@
             
                       <div class="cart">
                         <span class="price">{{product.currency}}{{product.price}}</span>
+                        <!-- (click)="pushToService(product)" -->
                         <span class="add-to-cart">
-                          <button class="txt" (click)="pushToService(product)">Add in cart</button>
+                          <button class="txt" (click)="addToCart(product)">Add in cart</button>
                         </span>
                       </div>
                     </div>
