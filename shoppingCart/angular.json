@@ -99,6 +99,14 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@netlify-builder/deploy:deploy",
+          "options": {
+            "outputPath": "dist/shopping-cart",
+            "netlifyToken": "00faeSBUNd_Lo2kj9nqcf0xIeH73XSvWypM-YmRNLAE",
+            "siteId": "3db6114f-56b5-4426-b8e1-e912f932a2ae"
+          }
         }
       }
     }
