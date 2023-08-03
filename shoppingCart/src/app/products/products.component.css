@@ -5,7 +5,19 @@
     box-sizing: border-box;
 }
 
+@media(max-width:512px) {
+  .main {
+      display: flex;
+      flex-direction: column;
+  }
+
+}
+
 @media(min-width:513px){
+  .main {
+    display: flex;
+    flex-direction: column;
+  }
   .products-page{
     display: flex;
   }

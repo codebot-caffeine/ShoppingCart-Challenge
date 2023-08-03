@@ -1,3 +1,11 @@
+@media(max-width:512px) {
+  .main {
+      display: flex;
+      flex-direction: column;
+  }
+
+}
+
 page-wrapper {
     height: 10vh;
     display: table;
