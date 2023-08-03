@@ -77,13 +77,16 @@ export class ProductsComponent implements OnInit {
   prefixlive:any = 'https://shopping-cart-nfec.onrender.com/'
   prefixtest:any = 'http://localhost:3000/'
   userId:any = ''
+  userData:any = ''
   constructor(private http: HttpClient,private cartService:CartService,private dm : dataService) {
-    if (!localStorage.getItem('foo')) { 
-      localStorage.setItem('foo', 'no reload') 
-      location.reload() 
-    } else {
-      localStorage.removeItem('foo') 
-    }
+    // if (!localStorage.getItem('foo')) { 
+    //   localStorage.setItem('foo', 'no reload') 
+    //   location.reload() 
+    // } else {
+    //   localStorage.removeItem('foo') 
+    // }
+    this.userData = localStorage.getItem('userDetails')
+    this.userData = JSON.parse(this.userData)
   }
 
   ngOnInit(): void {
@@ -94,9 +97,7 @@ export class ProductsComponent implements OnInit {
     }else{
       this.getProducts()
     }
-    let userData :any= localStorage.getItem('userDetails')
-    userData = JSON.parse(userData)
-    this.userId = userData._id
+    this.userId = this.userData._id
     // console.log(this.userId)
   }
 
