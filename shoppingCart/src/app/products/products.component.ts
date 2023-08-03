@@ -78,6 +78,12 @@ export class ProductsComponent implements OnInit {
   prefixtest:any = 'http://localhost:3000/'
   userId:any = ''
   constructor(private http: HttpClient,private cartService:CartService,private dm : dataService) {
+    if (!localStorage.getItem('foo')) { 
+      localStorage.setItem('foo', 'no reload') 
+      location.reload() 
+    } else {
+      localStorage.removeItem('foo') 
+    }
   }
 
   ngOnInit(): void {
@@ -87,12 +93,6 @@ export class ProductsComponent implements OnInit {
       this.filteredData = this.productsData
     }else{
       this.getProducts()
-    }
-    if (!localStorage.getItem('foo')) { 
-      localStorage.setItem('foo', 'no reload') 
-      location.reload() 
-    } else {
-      localStorage.removeItem('foo') 
     }
     let userData :any= localStorage.getItem('userDetails')
     userData = JSON.parse(userData)

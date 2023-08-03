@@ -4,15 +4,20 @@ import { AppComponent } from './app.component';
 import { CartComponent } from './cart/cart.component';
 import { ProductsComponent } from './products/products.component';
 import { LoginComponent } from './login/login.component';
+import { Router } from '@angular/router';
 
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'login',
     component: LoginComponent
   },
   {
     path: 'products',
+    component: ProductsComponent
+  },
+  {
+    path: '',
     component: ProductsComponent
   },
   {
@@ -26,4 +31,13 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+  constructor(
+    private router: Router
+  ) {
+    if (localStorage.getItem('token')) {
+    } else {
+      this.router.navigate(['login']);
+    }
+  }
+}

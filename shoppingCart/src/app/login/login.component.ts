@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token',data?.response.token)
           localStorage.setItem('userDetails',JSON.stringify(data?.response?.userData))
           setTimeout(()=>{
-            this.router.navigate(['/products'])
+            this.router.navigate(['products'])
           })
         }else{
           console.log(data,'error')

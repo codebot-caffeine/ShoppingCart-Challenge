@@ -22,9 +22,9 @@ export class AppComponent implements OnInit {
     if(!localStorage.getItem('userDetails')){
       this.loggedIn = false
       this.token = false
-      this.router.navigate(['/'])
+      this.router.navigate(['login'])
     }else{
-      this.router.navigate(['/products'])
+      this.router.navigate(['products'])
       this.token = true
       this.loggedIn = true
     }
@@ -40,6 +40,6 @@ export class AppComponent implements OnInit {
     localStorage.removeItem('token')
     this.loggedIn = false
     this.token = false
-    this.router.navigate(['/'])
+    this.router.navigate(['login'])
   }
 }
