@@ -67,7 +67,7 @@ export class dataService{
             "token": this.token
         }
         return this.httpClient
-            .post(url, entityObject, this.getUpdatedOptions())
+            .post(url, body, this.getUpdatedOptions())
             .pipe(
                 map((response: any) => {
                     var data = response;
