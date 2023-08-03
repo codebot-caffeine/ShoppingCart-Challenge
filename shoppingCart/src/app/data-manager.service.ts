@@ -64,7 +64,7 @@ export class dataService{
         let url = prefix + entity;
         let body = {
             ...entityObject,
-            "x-access-token": this.token
+            "token": this.token
         }
         return this.httpClient
             .post(url, entityObject, this.getUpdatedOptions())
